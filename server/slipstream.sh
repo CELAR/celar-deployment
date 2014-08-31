@@ -1,59 +1,21 @@
 #!/usr/bin/env bash
 #
-# SlipStream 2.x PROD installation recipe
+# SlipStream 2.3 PROD installation recipe
 #
 
 # Fail fast and fail hard.
-set -eox pipefail
-
-### BEGIN SLIPSTREAM UTILITIES ------8<-----------------8<-----------------8<--
-function ss-display (){
-    echo $@
-}
-
-function ss-envvar () {
-    # Transforming variable name to uppercase
-    # and replacing dash (-), period (.) and semi-colon (:) to underscore (_)
-    echo __$1 | tr "[:lower:]" "[:upper:]" | tr '-' '_' | tr '.' '_' | tr ':' '_'
-}
-
-function ss-set (){
-    # Log the variable and associated value to a file
-    echo "$(date -R) $1=$2" >> /var/log/slipstream.log
-    # Define an ad-hoc envvar in case it's reused via ss-get
-    local var=`ss-envvar $1`
-    unset $var
-    declare $var=$2
-}
-
-function ss-get (){
-    # We're using the last parametaer as variable name since ss-get
-    # can be used with options, like timeout (e.g. ss-get --timeout 2700 hostname)
-    local var=`ss-envvar ${!#}`
-    # Returning variable value
-    echo ${!var}
-}
-
-
-# Settings
-__HOSTNAME=$(/sbin/ifconfig eth0 | grep -P "inet add?r" | awk -F: '{print $2}' | awk '{print $1}')
-__REPO_KIND='snapshots'
-__CELAR_REPO_KIND='snapshots'
-__SLIPSTREAM_USERNAME='super'
-__SLIPSTREAM_PASSWORD='supeRsupeR'
-__SLIPSTREAM_SIXSQ_USERNAME='sixsq'
-__SLIPSTREAM_SIXSQ_PASSWORD='siXsQsiXsQ'
-### END SLIPSTREAM UTILITIES ------8<-----------------8<-----------------8<----
+set -exo pipefail
 
 ### Parameters
 SS_HOSTNAME=$(ss-get hostname)
 
 # Type of repository to lookup for SlipStream packages. 'releases' will install
 # stable releases, whereas 'snapshots' will install unstable/testing packages.
-REPO_KIND=$(ss-get repo-kind)
+REPO_KIND=$(ss-get ss-repo-kind)
 
-CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 CONNECTORS="fco okeanos"
+ADD_CELAR_REPO=false
+#CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 
 # Directory with static content to deploy SlipStream client and Cloud clients
 SS_STATIC_CONT_DIR=/opt/slipstream/downloads
@@ -71,13 +33,7 @@ EPEL_VER=6-8
 PYPI_PARAMIKO_VER=1.9.0
 PYPI_SCPCLIENT_VER=0.4
 
-# Examples settings
-SS_EXAMPLES_USERNAME=$(ss-get slipstream-sixsq-username)
-SS_EXAMPLES_PASSWORD=$(ss-get slipstream-sixsq-password)
-
 ### Advanced parameters
-
-JETTY_SSL_PORT=443
 
 SLIPSTREAM_SERVER_HOME=/opt/slipstream/server
 SLIPSTREAM_SERVER_LOGS=$SLIPSTREAM_SERVER_HOME/logs
@@ -307,6 +263,8 @@ function load_slipstream_examples() {
 }
 
 function _add_celar_repo() {
+	isTrue $ADD_CELAR_REPO || return 0
+
 	cat > /etc/yum.repos.d/celar.repo <<EOF
 [CELAR-${CELAR_REPO_KIND}]
 name=CELAR-${CELAR_REPO_KIND}
