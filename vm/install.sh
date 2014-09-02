@@ -2,10 +2,8 @@
 
 set -ex
 
-GITHUB_BRABCH=master
-#GITHUB_BRABCH=$(ss-get github-branch)
-GITHUB_PROJECTURL=https://raw.githubusercontent.com/CELAR/celar-deployment
-#GITHUB_PROJECTURL=$(ss-get github-projecturl)
+GITHUB_BRABCH=$(ss-get github-branch)
+GITHUB_PROJECTURL=$(ss-get github-projecturl)
 
 GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
 
