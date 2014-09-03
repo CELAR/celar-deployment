@@ -2,9 +2,7 @@
 
 set -ex
 
-# snapshots or releases
 CELAR_REPO_KIND=$(ss-get celar-repo-kind)
-# http://snf-175960.vm.okeanos.grnet.gr/nexus/content/repositories
 CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
 
 function add_celar_repo() {
