@@ -13,7 +13,7 @@ SS_HOSTNAME=$(ss-get hostname)
 # stable releases, whereas 'snapshots' will install unstable/testing packages.
 REPO_KIND=$(ss-get ss-repo-kind)
 
-CONNECTORS="fco okeanos"
+CONNECTORS=$(ss-get ss-connectors)
 ADD_CELAR_REPO=false
 #CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 
@@ -278,10 +278,19 @@ type=rpm-md
 EOF
 }
 
+function _install_ss_connector_okeanos() {
+	pip install kamaki
+	yum -y install slipstream-connector-okeanos
+}
+
+function _install_ss_connector_fco() {
+	yum -y install slipstream-connector-fco
+}
+
 function deploy_CloudConnectors() {
 	_add_celar_repo
 	for connector in ${CONNECTORS}; do
-		yum -y install slipstream-connector-${connector}
+		_install_ss_connector_${connector}
 	done
 }
 
