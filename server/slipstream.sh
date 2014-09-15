@@ -11,7 +11,7 @@ SS_HOSTNAME=$(ss-get hostname)
 
 # Type of repository to lookup for SlipStream packages. 'releases' will install
 # stable releases, whereas 'snapshots' will install unstable/testing packages.
-REPO_KIND=$(ss-get ss-repo-kind)
+SS_REPO_KIND=$(ss-get ss-repo-kind)
 
 CONNECTORS=$(ss-get ss-connectors)
 ADD_CELAR_REPO=false
@@ -20,7 +20,6 @@ ADD_CELAR_REPO=false
 # Directory with static content to deploy SlipStream client and Cloud clients
 SS_STATIC_CONT_DIR=/opt/slipstream/downloads
 
-NGINX_PROXY=true
 SLIPSTREAM_EXAMPLES=false
 
 # libcloud
@@ -34,9 +33,12 @@ PYPI_PARAMIKO_VER=1.9.0
 PYPI_SCPCLIENT_VER=0.4
 
 ### Advanced parameters
+CONFIGURE_FIREWALL=true
 
 SLIPSTREAM_SERVER_HOME=/opt/slipstream/server
 SLIPSTREAM_SERVER_LOGS=$SLIPSTREAM_SERVER_HOME/logs
+
+SLIPSTREAM_CONF=/etc/slipstream/slipstream.conf
 
 DEPS="unzip curl wget gnupg nc python-pip"
 CLEAN_PKG_CACHE="yum clean all"
@@ -80,24 +82,12 @@ function _add_yum_repos () {
     rpm -Uvh --force http://mirror.switch.ch/ftp/mirror/epel/6/i386/${EPEL_PKG}.rpm
 
     # Nginx
-    isTrue $NGINX_PROXY && \
-    	rpm -Uvh --force http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+	rpm -Uvh --force http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
 
     # SlipStream
-    [ "$RELEASE" == "true" ] && REPO_KIND=releases || REPO_KIND=snapshots
-
-    cat > /etc/yum.repos.d/slipstream.repo <<EOF
-[SlipStream-${REPO_KIND}]
-name=SlipStream-${REPO_KIND}
-baseurl=http://yum.sixsq.com/${REPO_KIND}/centos/6
-enabled=1
-protect=0
-gpgcheck=0
-metadata_expire=30s
-autorefresh=1
-type=rpm-md
-EOF
-
+	rpm -Uvh --force http://yum.sixsq.com/slipstream/centos/6/slipstream-repos-1.0-1.noarch.rpm
+	yum-config-manager --disable SlipStream-*
+	yum-config-manager --enable SlipStream-${SS_REPO_KIND}
 }
 
 function disable_selinux() {
@@ -106,6 +96,9 @@ function disable_selinux() {
 }
 
 function prepare_node () {
+
+	yum install -y yum-utils
+
     _add_yum_repos
 
     echo "Installing $DEPS ..."
@@ -201,7 +194,6 @@ function _update_or_add_config_property() {
 }
 
 function deploy_nginx_proxy() {
-    isTrue $NGINX_PROXY || return 0
 
     # Install nginx and the configuratoin file for SlipStream
     yum install -y slipstream-server-nginx-conf
