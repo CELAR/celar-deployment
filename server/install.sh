@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -exo pipefail
 
 GITHUB_BRABCH=$(ss-get github-branch)
 GITHUB_PROJECTURL=$(ss-get github-projecturl)
