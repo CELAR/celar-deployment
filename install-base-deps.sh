@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -exo pipefail
 
 CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
