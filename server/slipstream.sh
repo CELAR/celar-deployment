@@ -9,8 +9,8 @@ set -exo pipefail
 ### Parameters
 SS_HOSTNAME=$(ss-get hostname)
 
-# Type of repository to lookup for SlipStream packages. 'releases' will install
-# stable releases, whereas 'snapshots' will install unstable/testing packages.
+# Type of repository to lookup for SlipStream packages. 'Releases' will install
+# stable releases, whereas 'Snapshots' will install unstable/testing packages.
 SS_REPO_KIND=$(ss-get ss-repo-kind)
 
 CONNECTORS=$(ss-get ss-connectors)
