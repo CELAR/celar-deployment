@@ -39,6 +39,7 @@ SLIPSTREAM_SERVER_HOME=/opt/slipstream/server
 SLIPSTREAM_SERVER_LOGS=$SLIPSTREAM_SERVER_HOME/logs
 
 SLIPSTREAM_CONF=/etc/slipstream/slipstream.conf
+SLIPSTREAM_CONF_CONNECTORS_DIR=/etc/slipstream/connectors
 
 DEPS="unzip curl wget gnupg nc python-pip"
 CLEAN_PKG_CACHE="yum clean all"
@@ -163,6 +164,8 @@ function deploy_SlipStreamServer () {
     yum install -y slipstream-server
 
     update_slipstream_configuration
+    
+    deploy_CloudConnectors
 
     chkconfig --add slipstream
     service slipstream start
@@ -273,10 +276,37 @@ EOF
 function _install_ss_connector_okeanos() {
 	pip install kamaki
 	yum -y install slipstream-connector-okeanos
+
+	cat > ${SLIPSTREAM_CONF_CONNECTORS_DIR}/okeanos.conf << EOF
+# ~Okeanos
+cloud.connector.class = Okeanos:okeanos
+okeanos.service.type = compute
+okeanos.service.name = cyclades_compute
+okeanos.orchestrator.imageid = fe31fced-a3cf-49c6-b43b-f58f5235ba45 
+okeanos.orchestrator.instance.type = C2R2048D10ext_vlmc
+okeanos.endpoint = https://accounts.okeanos.grnet.gr/identity/v2.0
+okeanos.update.clienturl = https://${SS_HOSTNAME}/downloads/okeanoslibs.tar.gz
+okeanos.max.iaas.workers = 20
+okeanos.service.region = default
+okeanos.quota.vm = 
+EOF
+
 }
 
 function _install_ss_connector_fco() {
+
 	yum -y install slipstream-connector-fco
+
+	cat > ${SLIPSTREAM_CONF_CONNECTORS_DIR}/flexiant.conf << EOF
+# Flexiant (Orchestrator size is missing).
+cloud.connector.class = Flexiant-celar-dev:flexiant
+flexiant.endpoint = https://cp.sd1.flexiant.net:4442/
+flexiant.orchestrator.imageid = 81aef2d3-0291-38ef-b53a-22fcd5418e60
+flexiant.update.clienturl = https://${SS_HOSTNAME}/downloads/flexiantclient.tgz
+flexiant.max.iaas.workers = 20
+flexiant.quota.vm = 
+EOF
+	
 }
 
 function deploy_CloudConnectors() {
@@ -293,7 +323,6 @@ function cleanup () {
 prepare_node
 deploy_SlipStreamServerDependencies
 deploy_SlipStreamClient
-deploy_CloudConnectors
 deploy_SlipStreamServer
 cleanup
 
