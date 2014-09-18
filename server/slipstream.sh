@@ -293,8 +293,8 @@ function cleanup () {
 prepare_node
 deploy_SlipStreamServerDependencies
 deploy_SlipStreamClient
-deploy_SlipStreamServer
 deploy_CloudConnectors
+deploy_SlipStreamServer
 cleanup
 
 echo "::: SlipStream installed."
