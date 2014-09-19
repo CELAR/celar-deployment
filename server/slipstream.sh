@@ -164,7 +164,7 @@ function deploy_SlipStreamServer () {
     yum install -y slipstream-server
 
     update_slipstream_configuration
-    
+
     deploy_CloudConnectors
 
     chkconfig --add slipstream
@@ -280,15 +280,15 @@ function _install_ss_connector_okeanos() {
 	cat > ${SLIPSTREAM_CONF_CONNECTORS_DIR}/okeanos.conf << EOF
 # ~Okeanos
 cloud.connector.class = Okeanos:okeanos
-okeanos.service.type = compute
-okeanos.service.name = cyclades_compute
-okeanos.orchestrator.imageid = fe31fced-a3cf-49c6-b43b-f58f5235ba45 
-okeanos.orchestrator.instance.type = C2R2048D10ext_vlmc
-okeanos.endpoint = https://accounts.okeanos.grnet.gr/identity/v2.0
-okeanos.update.clienturl = https://${SS_HOSTNAME}/downloads/okeanoslibs.tar.gz
-okeanos.max.iaas.workers = 20
-okeanos.service.region = default
-okeanos.quota.vm = 
+Okeanos.service.type = compute
+Okeanos.service.name = cyclades_compute
+Okeanos.orchestrator.imageid = fe31fced-a3cf-49c6-b43b-f58f5235ba45
+Okeanos.orchestrator.instance.type = C2R2048D10ext_vlmc
+Okeanos.endpoint = https://accounts.okeanos.grnet.gr/identity/v2.0
+Okeanos.update.clienturl = https://${SS_HOSTNAME}/downloads/okeanoslibs.tar.gz
+Okeanos.max.iaas.workers = 20
+Okeanos.service.region = default
+Okeanos.quota.vm =
 EOF
 
 }
@@ -300,13 +300,13 @@ function _install_ss_connector_fco() {
 	cat > ${SLIPSTREAM_CONF_CONNECTORS_DIR}/flexiant.conf << EOF
 # Flexiant (Orchestrator size is missing).
 cloud.connector.class = Flexiant-celar-dev:flexiant
-flexiant.endpoint = https://cp.sd1.flexiant.net:4442/
-flexiant.orchestrator.imageid = 81aef2d3-0291-38ef-b53a-22fcd5418e60
-flexiant.update.clienturl = https://${SS_HOSTNAME}/downloads/flexiantclient.tgz
-flexiant.max.iaas.workers = 20
-flexiant.quota.vm = 
+Flexiant-celar-dev.endpoint = https://cp.sd1.flexiant.net:4442/
+Flexiant-celar-dev.orchestrator.imageid = 81aef2d3-0291-38ef-b53a-22fcd5418e60
+Flexiant-celar-dev.update.clienturl = https://${SS_HOSTNAME}/downloads/flexiantclient.tgz
+Flexiant-celar-dev.max.iaas.workers = 20
+Flexiant-celar-dev.quota.vm =
 EOF
-	
+
 }
 
 function deploy_CloudConnectors() {
