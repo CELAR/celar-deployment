@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo yum -y install celar-decision-making
+yum -y install celar-decision-making
