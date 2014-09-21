@@ -11,7 +11,8 @@ yum install -y curl
 
 SCRIPTS="install-base-deps.sh
 orchestrator/slipstream-orch-deps.sh
-orchestrator/dmm-install.sh"
+orchestrator/dmm-install.sh
+orchestrator/jcatascopia-server.sh"
 
 for SCRIPT in $SCRIPTS; do
     echo "::: Downloading and launching $SCRIPT"
