@@ -10,7 +10,8 @@ GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
 yum install -y curl
 
 SCRIPTS="install-base-deps.sh
-vm/slipstream-node-deps.sh"
+vm/slipstream-node-deps.sh
+vm/jcatascopia-agent.sh"
 
 for SCRIPT in $SCRIPTS; do
     echo "::: Downloading and launching $SCRIPT"
