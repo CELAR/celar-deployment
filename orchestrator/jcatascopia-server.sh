@@ -6,7 +6,7 @@ TOMCAT_DIR=/usr/share
 yum install -y wget
 
 #install java
-yum -y install java-1.7.0-openjdk
+yum install -y java-1.7.0-openjdk
 
 #install cassandra
 cat > /etc/yum.repos.d/datastax.repo <<EOF
@@ -22,8 +22,7 @@ yum -y install dsc20
 cassandra -f &
 
 #download JCatascopia-Server and install it
-#change location of rpm package to celar repo
-rpm -Uvh http://109.231.122.22:8080/downloads/JCatascopia-Server-0.0.1-1.noarch.rpm
+yum install -y JCatascopia-Server
 /etc/init.d/JCatascopia-Server start
 
 #download and instantiate tomcat
@@ -36,4 +35,4 @@ $TOMCAT_DIR/tomcat/bin/startup.sh
 
 #download and install JCatascopia-Web
 #default location for tomcat based on rpm is /usr/share/tomcat/...
-rpm -Uvh http://109.231.122.22:8080/downloads/JCatascopia-Web-0.0.1-1.noarch.rpm
+yum install -y JCatascopia-Web
