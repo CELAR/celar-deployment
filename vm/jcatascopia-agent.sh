@@ -27,7 +27,6 @@ fi
 URL="$CELAR_REPO/nexus/service/local/artifact/maven/redirect?r=snapshots&g=$JC_GROUP&a=$JC_ARTIFACT&v=$JC_VERSION&p=$JC_TYPE"
 wget -O JCatascopia-Agent.tar.gz $URL
 tar xvfz JCatascopia-Agent.tar.gz
-
 eval "sed -i 's/server_ip=.*/server_ip=$SERVER_IP/g' JCatascopia-Agent-*/JCatascopiaAgentDir/resources/agent.properties"
 cd JCatascopia-Agent-*
 ./installer.sh
