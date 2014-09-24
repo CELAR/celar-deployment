@@ -25,7 +25,6 @@ fi
 
 #download,install and start jcatascopia agent...
 URL="$CELAR_REPO/nexus/service/local/artifact/maven/redirect?r=snapshots&g=$JC_GROUP&a=$JC_ARTIFACT&v=$JC_VERSION&p=$JC_TYPE"
-echo $URL
 wget -O JCatascopia-Agent.tar.gz $URL
 tar xvfz JCatascopia-Agent.tar.gz
 
