@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#remove COMIT statement from iptables
-head -n -1 /etc/sysconfig/iptables > /tmp/iptables
+#remove COMIT statement from iptables and last tweo reject statements
+head -n -3 /etc/sysconfig/iptables > /tmp/iptables
 mv -f /tmp/iptables /etc/sysconfig/iptables
 
 #add custom rules for CELAR MODULES
@@ -22,6 +22,11 @@ iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 8280 -j ACCEPT
 iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 4242 -j ACCEPT 
 iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 4243 -j ACCEPT 
 iptables -A INPUT -m state --state NEW -m tcp -p tcp --dport 4245 -j ACCEPT 
+
+#add the last two rejects statements back
+#in testing, if I add rules after this reject is mentioned, the rules are ignored
+iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
+iptables -A FORWARD -j REJECT --reject-with icmp-host-prohibited
 
 service iptables save
 
