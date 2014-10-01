@@ -12,6 +12,7 @@ GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
 yum install -y curl
 
 SCRIPTS="install-base-deps.sh
+orchestrator/add-iptables-rules.sh
 orchestrator/slipstream-orch-deps.sh
 orchestrator/jcatascopia-server.sh
 orchestrator/dmm-install.sh"
