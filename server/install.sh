@@ -20,3 +20,6 @@ for SCRIPT in $SCRIPTS; do
     chmod +x $SCRIPT
     ./$SCRIPT
 done
+
+# Temporary
+service iptables stop
