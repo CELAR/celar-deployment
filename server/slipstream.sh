@@ -3,6 +3,8 @@
 # SlipStream 2.3 PROD installation recipe
 #
 
+# THIS SCRIPT CONTAINS A HACK see at the bottom
+
 # Fail fast and fail hard.
 set -exo pipefail
 
@@ -327,5 +329,8 @@ deploy_SlipStreamServer
 cleanup
 
 echo "::: SlipStream installed."
+
+# HACKs go here
+touch /opt/slipstream/connectors/bin/slipstream.client.conf
 
 exit 0
