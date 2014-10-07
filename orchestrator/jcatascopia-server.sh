@@ -3,6 +3,8 @@
 TOMCAT_VERSION=7.0.55
 TOMCAT_DIR=/usr/share
 
+eval "sed -i 's/127.0.0.1.*localhost.*/127.0.0.1 localhost $HOSTNAME/g' /etc/hosts"
+
 yum install -y wget
 
 #install java

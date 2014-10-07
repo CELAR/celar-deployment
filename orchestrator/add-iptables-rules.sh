@@ -1,8 +1,7 @@
 #!/bin/bash
 
-#remove COMIT statement from iptables and last tweo reject statements
-head -n -3 /etc/sysconfig/iptables > /tmp/iptables
-mv -f /tmp/iptables /etc/sysconfig/iptables
+iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
+iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited
 
 #add custom rules for CELAR MODULES
 

@@ -3,6 +3,8 @@
 # SlipStream 2.3 PROD installation recipe
 #
 
+# THIS SCRIPT CONTAINS A HACK see at the bottom
+
 # Fail fast and fail hard.
 set -exo pipefail
 
@@ -299,12 +301,12 @@ function _install_ss_connector_fco() {
 
 	cat > ${SLIPSTREAM_CONF_CONNECTORS_DIR}/flexiant.conf << EOF
 # Flexiant (Orchestrator size is missing).
-cloud.connector.class = Flexiant-celar-dev:flexiant
-Flexiant-celar-dev.endpoint = https://cp.sd1.flexiant.net:4442/
-Flexiant-celar-dev.orchestrator.imageid = 81aef2d3-0291-38ef-b53a-22fcd5418e60
-Flexiant-celar-dev.update.clienturl = https://${SS_HOSTNAME}/downloads/flexiantclient.tgz
-Flexiant-celar-dev.max.iaas.workers = 20
-Flexiant-celar-dev.quota.vm =
+cloud.connector.class = Flexiant:flexiant
+Flexiant.endpoint = https://cp.sd1.flexiant.net:4442/
+Flexiant.orchestrator.imageid = 81aef2d3-0291-38ef-b53a-22fcd5418e60
+Flexiant.update.clienturl = https://${SS_HOSTNAME}/downloads/flexiantclient.tgz
+Flexiant.max.iaas.workers = 20
+Flexiant.quota.vm =
 EOF
 
 }
@@ -327,5 +329,8 @@ deploy_SlipStreamServer
 cleanup
 
 echo "::: SlipStream installed."
+
+# HACKs go here
+touch /opt/slipstream/connectors/bin/slipstream.client.conf
 
 exit 0
