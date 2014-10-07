@@ -16,17 +16,17 @@ done;
 
 dmversion=$(getLatestVersion mela-data-service)
 echo installing mela-data-service-$dmversion
-yum install mela-data-service-$dmversion
+yum install -y mela-data-service-$dmversion
 
 
 dmversion=$(getLatestVersion mela-analysis-service)
 echo installing mela-analysis-service-$dmversion
-yum install mela-analysis-service-$dmversion
+yum install -y mela-analysis-service-$dmversion
 
 
 dmversion=$(getLatestVersion celar-decision-making)
 echo installing celar-decision-making-$dmversion
-yum install celar-decision-making-$dmversion
+yum install -y celar-decision-making-$dmversion
 
 
 #yum -y install mela-data-service --skip-broken
