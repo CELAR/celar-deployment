@@ -5,6 +5,10 @@ iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited
 
 #add custom rules for CELAR MODULES
 
+# CELAR Orchestrator ports
+iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 80 -j ACCEPT
+iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 443 -j ACCEPT
+
 #rule for accessing JCatascopia
 iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 8080 -j ACCEPT
 

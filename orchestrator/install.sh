@@ -15,6 +15,7 @@ SCRIPTS="install-base-deps.sh
 orchestrator/slipstream-orch-deps.sh
 orchestrator/jcatascopia-server.sh
 orchestrator/dmm-install.sh
+orchestrator/celar-orch.sh
 orchestrator/add-iptables-rules.sh"
 
 for SCRIPT in $SCRIPTS; do
