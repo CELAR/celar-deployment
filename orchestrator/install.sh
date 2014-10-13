@@ -5,7 +5,7 @@ echo 127.0.0.1 $(hostname) >> /etc/hosts
 set -exo pipefail
 
 if [ -z "${GITHUB_BRANCH}" ]; then
-   export GITHUB_BRABCH=$(ss-get github-branch)
+   export GITHUB_BRANCH=$(ss-get github-branch)
 fi 
 if [ -z "${GITHUB_PROJECTURL}" ]; then
    export GITHUB_PROJECTURL=$(ss-get github-projecturl)
