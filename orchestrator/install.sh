@@ -9,7 +9,7 @@ if [ -z "${GITHUB_BRANCH}" ]; then
 fi 
 if [ -z "${GITHUB_PROJECTURL}" ]; then
    export GITHUB_PROJECTURL=$(ss-get github-projecturl)
-if 
+fi
 
 GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRANCH}
 
