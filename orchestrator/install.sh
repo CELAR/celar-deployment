@@ -4,10 +4,14 @@ echo 127.0.0.1 $(hostname) >> /etc/hosts
 
 set -exo pipefail
 
-GITHUB_BRABCH=$(ss-get github-branch)
-GITHUB_PROJECTURL=$(ss-get github-projecturl)
+if [ -z "${GITHUB_BRANCH}" ]; then
+   export GITHUB_BRABCH=$(ss-get github-branch)
+fi 
+if [ -z "${GITHUB_PROJECTURL}" ]; then
+   export GITHUB_PROJECTURL=$(ss-get github-projecturl)
+if 
 
-GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
+GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRANCH}
 
 yum install -y curl
 
