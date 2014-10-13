@@ -2,10 +2,14 @@
 
 set -exo pipefail
 
-GITHUB_BRABCH=$(ss-get github-branch)
-GITHUB_PROJECTURL=$(ss-get github-projecturl)
+if [ -z "${GITHUB_BRANCH}" ]; then
+   export GITHUB_BRANCH=$(ss-get github-branch)
+fi 
+if [ -z "${GITHUB_PROJECTURL}" ]; then
+   export GITHUB_PROJECTURL=$(ss-get github-projecturl)
+fi
 
-GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
+GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRANCH}
 
 yum install -y curl
 
@@ -16,7 +20,7 @@ server/slipstream.sh"
 for SCRIPT in $SCRIPTS; do
     echo "::: Downloading and launching $SCRIPT"
     curl -k -O $GITHUB_BASEURL/$SCRIPT
-	SCRIPT=$(basename $SCRIPT)
+    SCRIPT=$(basename $SCRIPT)
     chmod +x $SCRIPT
     ./$SCRIPT
 done
