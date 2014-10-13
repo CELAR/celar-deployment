@@ -2,8 +2,12 @@
 
 set -exo pipefail
 
-CELAR_REPO_KIND=$(ss-get celar-repo-kind)
-CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
+if [ -z "${CELAR_REPO_KIND}" ]; then
+   export CELAR_REPO_KIND=$(ss-get celar-repo-kind)
+fi 
+if [ -z "${CELAR_REPO_BASEURL}" ]; then
+   export CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
+fi
 
 function add_celar_repo() {
     cat > /etc/yum.repos.d/celar.repo <<EOF
