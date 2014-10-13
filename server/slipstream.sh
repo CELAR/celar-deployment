@@ -8,14 +8,26 @@
 # Fail fast and fail hard.
 set -exo pipefail
 
+# Return first global IPv4 address.                                            
+function _get_hostname() {                                                     
+    ip addr | awk '/inet .*global/ { split($2, x, "/"); print x[1] }' | head -1
+}                                                                              
+
 ### Parameters
-SS_HOSTNAME=$(ss-get hostname)
+
+# First "global" IPv4 address                                                  
+SS_HOSTNAME=$(_get_hostname)
 
 # Type of repository to lookup for SlipStream packages. 'Releases' will install
 # stable releases, whereas 'Snapshots' will install unstable/testing packages.
-SS_REPO_KIND=$(ss-get ss-repo-kind)
+if [ -z "${SS_REPO_KIND}" ]; then
+    SS_REPO_KIND=$(ss-get ss-repo-kind)
+fi
 
-CONNECTORS=$(ss-get ss-connectors)
+if [ -z "${CONNECTORS}" ]; then
+    CONNECTORS=$(ss-get ss-connectors)
+fi
+
 ADD_CELAR_REPO=false
 #CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 
