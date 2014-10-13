@@ -29,7 +29,7 @@ yum install -y JCatascopia-Server
 
 #download and instantiate tomcat
 if [ ! -d /usr/share/apache-tomcat-$TOMCAT_VERSION ]; then
-  wget http://mirror.olnevhost.net/pub/apache/tomcat/tomcat-7/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+  wget http://archive.apache.org/dist/tomcat/tomcat-7/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
   tar xvfz apache-tomcat-$TOMCAT_VERSION.tar.gz -C $TOMCAT_DIR/
   mv $TOMCAT_DIR/apache-tomcat-$TOMCAT_VERSION $TOMCAT_DIR/tomcat/
 fi
