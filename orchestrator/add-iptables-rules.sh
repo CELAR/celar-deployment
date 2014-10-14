@@ -1,38 +1,26 @@
 #!/bin/bash
 
-iptables -D INPUT -j REJECT --reject-with icmp-host-prohibited
-iptables -D FORWARD -j REJECT --reject-with icmp-host-prohibited
+cat > /etc/sysconfig/iptables <<EOF
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [1:72]
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 22 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 80 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 443 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8080 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8180 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8181 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8280 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4242 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4243 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4245 -j ACCEPT
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+-A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4242 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4243 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4245 -j ACCEPT
+COMMIT
+EOF
 
-#add custom rules for CELAR MODULES
-
-# CELAR Orchestrator ports
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 443 -j ACCEPT
-
-#rule for accessing JCatascopia
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 8080 -j ACCEPT
-
-#rule for accessing MELA Data Service
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 8180 -j ACCEPT 
-
-#rule for accessing MELA Analysis Service
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 8181 -j ACCEPT 
-
-#rule for accessing rSYBL
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 8280 -j ACCEPT 
-
-#rule for JCatascopia Agents connecting to Server
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4242 -j ACCEPT 
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4243 -j ACCEPT 
-iptables -A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4245 -j ACCEPT 
-iptables -A OUTPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4242 -j ACCEPT 
-iptables -A OUTPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4243 -j ACCEPT 
-iptables -A OUTPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport 4245 -j ACCEPT 
-
-#add the last two rejects statements back
-#in testing, if I add rules after this reject is mentioned, the rules are ignored
-iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
-iptables -A FORWARD -j REJECT --reject-with icmp-host-prohibited
-
-service iptables save
-
+service iptables restart
