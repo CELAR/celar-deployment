@@ -1,34 +1,48 @@
 #!/bin/bash
-#due to version conflicts and bad naming, yum does not always load the correct rpm.
-function getLatestVersion(){
-yum --showduplicates list $1 | grep 1.0- >> /tmp/$1-rpm
-while read i; do lastline=$i ; done < /tmp/$1-rpm
-count=0;
-for i in $lastline; do
-   if [  $count -eq 1 ]; then
-        version=$i
-   fi
-   let "count+=1"
-done;
- echo $version
-}
 
+#added mysql support for mela, to reduce RAM usage
+#!/bin/bash
+yum -q -y install mysql mysql-server
 
-dmversion=$(getLatestVersion mela-data-service)
-echo installing mela-data-service-$dmversion
-yum install -y mela-data-service-$dmversion
+chkconfig mysqld on
+service mysqld start
 
+#wait for mysql to start, to initialize it
+until pids=$(pidof mysqld)
+do   
+    sleep 5
+done
 
-dmversion=$(getLatestVersion mela-analysis-service)
-echo installing mela-analysis-service-$dmversion
-yum install -y mela-analysis-service-$dmversion
+#add mela user and database
+mysql -uroot -e <<EOSQL "UPDATE mysql.user SET Password=PASSWORD('c3lar') WHERE User='root'; CREATE USER 'mela'@'localhost' IDENTIFIED BY 'mela'; GRANT ALL PRIVILEGES ON * . * TO 'mela'@'localhost'; FLUSH PRIVILEGES; 
+create database mela;
+use mela;
 
+create table MonitoringSeq (ID VARCHAR(200) PRIMARY KEY);
+create table Timestamp (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestamp BIGINT, serviceStructure LONGTEXT, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID) );
+create table RawCollectedData (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestampID int, metricName VARCHAR(100), metricUnit VARCHAR(100), metrictype VARCHAR(20), value VARCHAR(50),  monitoredElementID VARCHAR (50), monitoredElementLevel VARCHAR (50), FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID));
+create table Configuration (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),configuration LONGTEXT, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID));
+create table AggregatedData (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestampID int, data  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
+create table ElasticitySpace (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),  startTimestampID int, endTimestampID int, elasticitySpace  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (startTimestampID) REFERENCES Timestamp(ID), FOREIGN KEY (endTimestampID) REFERENCES Timestamp(ID) );
+create table ElasticityPathway (monSeqID VARCHAR(200) PRIMARY KEY, timestampID int, elasticityPathway  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
+create table ELASTICITYDEPENDENCY (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), startTimestampID int, endTimestampID int, elasticityDependency LONGTEXT, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (startTimestampID) REFERENCES Timestamp(ID), FOREIGN KEY (endTimestampID) REFERENCES Timestamp(ID) );
+create table Events (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), event VARCHAR(200), flag VARCHAR(10));
+"
+EOSQL
 
-dmversion=$(getLatestVersion celar-decision-making)
-echo installing celar-decision-making-$dmversion
-yum install -y celar-decision-making-$dmversion
+#inchreasing max_allowed_packet to allow elasticity space to be stored
+eval "sed -i 's#\[mysqld\].*#\[mysqld\] \n max_allowed_packet=500MB#' /etc/my.cnf"
 
+service mysqld restart
 
-#yum -y install mela-data-service --skip-broken
-#yum -y install mela-analysis-service --skip-broken
-#yum -y install celar-decision-making --skip-broken
+echo "Done configuring mysql"
+
+echo installing mela-data-service
+yum install -y mela-data-service
+ 
+echo installing mela-analysis-service
+yum install -y mela-analysis-service
+
+echo installing celar-decision-making
+yum install -y celar-decision-making
+
