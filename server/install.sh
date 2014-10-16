@@ -15,7 +15,8 @@ yum install -y curl
 
 SCRIPTS="install-base-deps.sh
 server/celar-server.sh
-server/slipstream.sh"
+server/slipstream.sh
+server/slipstream-celar-patch.sh"
 
 for SCRIPT in $SCRIPTS; do
     echo "::: Downloading and launching $SCRIPT"
