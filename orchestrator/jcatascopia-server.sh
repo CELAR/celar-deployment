@@ -21,11 +21,11 @@ EOF
 yum -y install dsc20
 
 #start cassandra
-cassandra -f &
+#cassandra -f &
 
 #download JCatascopia-Server and install it
 yum install -y JCatascopia-Server
-/etc/init.d/JCatascopia-Server start
+#/etc/init.d/JCatascopia-Server start
 
 #download and instantiate tomcat
 if [ ! -d /usr/share/apache-tomcat-$TOMCAT_VERSION ]; then
@@ -33,8 +33,10 @@ if [ ! -d /usr/share/apache-tomcat-$TOMCAT_VERSION ]; then
   tar xvfz apache-tomcat-$TOMCAT_VERSION.tar.gz -C $TOMCAT_DIR/
   mv $TOMCAT_DIR/apache-tomcat-$TOMCAT_VERSION $TOMCAT_DIR/tomcat/
 fi
-$TOMCAT_DIR/tomcat/bin/startup.sh
+#$TOMCAT_DIR/tomcat/bin/startup.sh
 
 #download and install JCatascopia-Web
 #default location for tomcat based on rpm is /usr/share/tomcat/...
 yum install -y JCatascopia-Web
+
+/etc/init.d/JCatascopia-Server start
