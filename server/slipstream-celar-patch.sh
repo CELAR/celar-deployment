@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+yum install -y patch
+
 pushd /opt/slipstream/downloads
 
 cat > slipstream.bootstrap.patch << EOF
