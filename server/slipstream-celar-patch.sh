@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-yum install -y patch
+rpm -q patch > /dev/null || yum install -y patch
 
 pushd /opt/slipstream/downloads
 
@@ -94,7 +94,7 @@ cat > BaseCloudConnector.py.patch <<EOF
 @@ -33,7 +33,7 @@ from slipstream.NodeDecorator import NodeDecorator, KEY_RUN_CATEGORY
  from slipstream.listeners.SimplePrintListener import SimplePrintListener
  from slipstream.listeners.SlipStreamClientListenerAdapter import SlipStreamClientListenerAdapter
- from slipstream.utils.ssh import remoteRunScriptNohup, waitUntilSshCanConnectOrTimeout, remoteRunScript, \
+ from slipstream.utils.ssh import remoteRunScriptNohup, waitUntilSshCanConnectOrTimeout, remoteRunScript, \\
 -                                 remoteInstallPackages, generate_keypair
 +                                 remoteInstallPackages, generate_keypair, generate_ssh_keypair
  from slipstream.utils.tasksrunner import TasksRunner
