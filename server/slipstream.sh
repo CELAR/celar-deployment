@@ -15,6 +15,8 @@ function _get_hostname() {
 
 ### Parameters
 
+SS_VERSION=2.3.6
+
 # First "global" IPv4 address                                                  
 SS_HOSTNAME=$(_get_hostname)
 
@@ -142,7 +144,7 @@ function deploy_HSQLDB () {
     kill -9 $(cat /var/run/hsqldb.pid) || true
     rm -f /var/run/hsqldb.pid
 
-    yum install -y slipstream-hsqldb
+    yum install -y slipstream-hsqldb-${SS_VERSION}
 
     echo "Starting HSQLDB..."
     service hsqldb start || true # false-positive failure
@@ -167,7 +169,7 @@ function deploy_SlipStreamClient () {
     # winrm
     pip install https://github.com/diyan/pywinrm/archive/a2e7ecf95cf44535e33b05e0c9541aeb76e23597.zip
 
-    yum install -y --enablerepo=epel slipstream-client
+    yum install -y --enablerepo=epel slipstream-client-${SS_VERSION}
 }
 
 function deploy_SlipStreamServer () {
@@ -175,7 +177,7 @@ function deploy_SlipStreamServer () {
 
     service slipstream stop || true
 
-    yum install -y slipstream-server
+    yum install -y slipstream-server-${SS_VERSION}
 
     update_slipstream_configuration
 
@@ -213,7 +215,7 @@ function _update_or_add_config_property() {
 function deploy_nginx_proxy() {
 
     # Install nginx and the configuratoin file for SlipStream
-    yum install -y slipstream-server-nginx-conf
+    yum install -y slipstream-server-nginx-conf-${SS_VERSION}
 
     if [ ! -f /etc/nginx/ssl/server.crt ]; then
         setup_ssl;
