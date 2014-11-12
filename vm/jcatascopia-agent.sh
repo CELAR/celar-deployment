@@ -17,7 +17,7 @@ if [[ "$DISTRO" == *Ubuntu* ]]; then
 fi
 
 if [[ "$DISTRO" == *CentOS* ]]; then
-        yum -y update
+        #yum -y update
         yum install -y wget
         #download and install java
         yum -y install java-1.7.0-openjdk
