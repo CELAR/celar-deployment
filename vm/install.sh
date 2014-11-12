@@ -18,7 +18,7 @@ if [ -z "${GITHUB_PROJECTURL}" ]; then
    export GITHUB_PROJECTURL=$(ss-get github-projecturl)
 fi
 
-GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRABCH}
+GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRANCH}
 
 SCRIPTS="vm/slipstream-node-deps.sh
 vm/jcatascopia-agent.sh"
