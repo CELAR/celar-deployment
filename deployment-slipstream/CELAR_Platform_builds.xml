@@ -1,0 +1,49 @@
+<projectModule category="Project" creation="2014-10-13 15:39:36.69 EEST" deleted="false" description="" isLatestVersion="true" lastModified="2014-10-13 15:39:36.72 EEST" parentUri="module/CELAR_Platform" shortName="builds" version="877">
+   <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="false" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+      <groupMembers />
+   </authz>
+   <commit author="celar">
+      <comment />
+   </commit>
+   <cloudNames length="5">
+      <string>Flexiant-c2</string>
+      <string>Flexiant-c1</string>
+      <string>flexiant-giannis</string>
+      <string>Flexiant</string>
+      <string>default</string>
+   </cloudNames>
+   <runs />
+   <children>
+      <item category="Image" description="" name="CELAR_Orchestrator" version="1084">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="" name="CELAR_Server" version="892">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="CELAR RedHat VM for applications." name="CELAR_VM_RedHat" version="1137">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="CELAR Ubuntu VM for applications." name="CELAR_VM_Ubuntu" version="1132">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="" name="to_test_orch" version="989">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Deployment" description="" name="to_test_orch_depl" version="983">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+   </children>
+   <parameters />
+</projectModule>

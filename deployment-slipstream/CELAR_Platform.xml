@@ -1,0 +1,59 @@
+<projectModule category="Project" creation="2014-08-29 15:47:04.135 EEST" deleted="false" description="Deployment of CELAR Platform" isLatestVersion="true" lastModified="2014-09-26 15:17:54.139 EEST" logoLink="" parentUri="module/" shortName="CELAR_Platform" version="418">
+   <authz groupCreateChildren="false" groupDelete="false" groupGet="true" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="false" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="false" publicPut="false">
+      <groupMembers />
+   </authz>
+   <commit author="celar">
+      <comment />
+   </commit>
+   <cloudNames length="5">
+      <string>Flexiant-c2</string>
+      <string>Flexiant-c1</string>
+      <string>flexiant-giannis</string>
+      <string>Flexiant</string>
+      <string>default</string>
+   </cloudNames>
+   <runs />
+   <children>
+      <item category="Image" description="CELAR Orchestrator" name="CELAR_Orchestrator" version="1330">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="true">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Deployment" description="CELAR Orchestrator deployment" name="CELAR_Orchestrator_depl" version="1335">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="true" groupPost="true" groupPut="true" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="true" publicPost="true" publicPut="true">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="CELAR Server" name="CELAR_Server" version="1343">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="super" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Deployment" description="CELAR Server deployment" name="CELAR_Server_depl" version="1334">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="CELAR VM RedHat" name="CELAR_VM_RedHat" version="1331">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Image" description="CELAR VM Ubuntu" name="CELAR_VM_Ubuntu" version="1332">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Deployment" description="CELAR VMs deployment" name="CELAR_VM_depl" version="1336">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="true" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+      <item category="Project" description="" name="builds" version="877">
+         <authz groupCreateChildren="false" groupDelete="false" groupGet="false" groupPost="false" groupPut="false" inheritedGroupMembers="true" owner="celar" ownerCreateChildren="true" ownerDelete="true" ownerGet="true" ownerPost="false" ownerPut="true" publicCreateChildren="false" publicDelete="false" publicGet="false" publicPost="false" publicPut="false">
+            <groupMembers />
+         </authz>
+      </item>
+   </children>
+   <parameters />
+</projectModule>
