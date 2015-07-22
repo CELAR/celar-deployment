@@ -14,6 +14,7 @@ cat > /etc/sysconfig/iptables <<EOF
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8080 -j ACCEPT
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8180 -j ACCEPT
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8181 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8182 -j ACCEPT
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 8280 -j ACCEPT
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4242 -j ACCEPT
 -A INPUT -p tcp -m state --state NEW,ESTABLISHED -m tcp --dport 4243 -j ACCEPT
