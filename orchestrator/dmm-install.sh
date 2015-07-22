@@ -33,8 +33,9 @@ create table CaschedHistoricalUsage (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID
 create table CaschedCompleteHistoricalUsage (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestampID int, data  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
 create table InstantCostHistory (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestampID int, data  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
 create table TotalCostHistory (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200), timestampID int, data  LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
-create table InstantCostElasticitySpace (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),  startTimestampID int, endTimestampID int, elasticitySpace OTHER, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (startTimestampID) REFERENCES Timestamp(ID), FOREIGN KEY (endTimestampID) REFERENCES Timestamp(ID) )
-create table InstantCostElasticityPathway (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),  timestampID int, elasticityPathway OTHER, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID),FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) )
+create table IF NOT EXISTS InstantCostElasticitySpace (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),  startTimestampID int, endTimestampID int, elasticitySpace LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID), FOREIGN KEY (startTimestampID) REFERENCES Timestamp(ID), FOREIGN KEY (endTimestampID) REFERENCES Timestamp(ID) );
+create table IF NOT EXISTS InstantCostElasticityPathway (ID int AUTO_INCREMENT PRIMARY KEY, monSeqID VARCHAR(200),  timestampID int, elasticityPathway LONGBLOB, FOREIGN KEY (monSeqID) REFERENCES MonitoringSeq(ID),FOREIGN KEY (timestampID) REFERENCES Timestamp(ID) );
+
 "
 EOSQL
 
