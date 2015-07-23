@@ -52,6 +52,10 @@ yum install -y mela-data-service
 echo installing mela-analysis-service
 yum install -y mela-analysis-service
 
+echo installing mela-cost-eval-service
+yum install -y mela-cost-eval-service
+
 echo installing celar-decision-making
 yum install -y celar-decision-making
+
 
