@@ -1,12 +1,16 @@
 #!/bin/bash
 
-set -exo pipefail
+set -ex
+set -o pipefail
 
 if [ -z "${CELAR_REPO_KIND}" ]; then
-   export CELAR_REPO_KIND=$(ss-get celar-repo-kind)
+   #export CELAR_REPO_KIND=$(ss-get celar-repo-kind)
+   #export CELAR_REPO_KIND=Snapshots
+   export CELAR_REPO_KIND=Releases
 fi 
 if [ -z "${CELAR_REPO_BASEURL}" ]; then
-   export CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
+   #export CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
+   export CELAR_REPO_BASEURL='http://snf-175960.vm.okeanos.grnet.gr/yum'
 fi
 
 function add_celar_repo() {
