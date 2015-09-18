@@ -5,8 +5,8 @@ set -o pipefail
 
 if [ -z "${CELAR_REPO_KIND}" ]; then
    #export CELAR_REPO_KIND=$(ss-get celar-repo-kind)
-   #export CELAR_REPO_KIND=Snapshots
-   export CELAR_REPO_KIND=Releases
+   #export CELAR_REPO_KIND=snapshots
+   export CELAR_REPO_KIND=releases
 fi 
 if [ -z "${CELAR_REPO_BASEURL}" ]; then
    #export CELAR_REPO_BASEURL=$(ss-get celar-repo-baseurl)
