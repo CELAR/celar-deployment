@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -ex
+set -o pipefail
+
 TOMCAT_VERSION=7.0.55
 TOMCAT_DIR=/usr/share
 
