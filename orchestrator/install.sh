@@ -14,10 +14,12 @@ set -exo pipefail
 #export GITHUB_PROJECTURL=https://raw.githubusercontent.com/CELAR/celar-deployment
 
 if [ -z "${GITHUB_BRANCH}" ]; then
-   export GITHUB_BRANCH=$(ss-get github-branch || echo -n master)
+   #export GITHUB_BRANCH=$(ss-get github-branch || echo -n master)
+   export GITHUB_BRANCH=master
 fi 
 if [ -z "${GITHUB_PROJECTURL}" ]; then
-   export GITHUB_PROJECTURL=$(ss-get github-projecturl || echo -n 'https://raw.githubusercontent.com/CELAR/celar-deployment')
+   #export GITHUB_PROJECTURL=$(ss-get github-projecturl)
+   export GITHUB_PROJECTURL=https://raw.githubusercontent.com/CELAR/celar-deployment
 fi
 
 GITHUB_BASEURL=${GITHUB_PROJECTURL}/${GITHUB_BRANCH}
