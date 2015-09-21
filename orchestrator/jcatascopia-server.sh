@@ -12,7 +12,7 @@ eval "sed -i 's/127.0.0.1.*localhost.*/127.0.0.1 localhost $HOSTNAME/g' /etc/hos
 yum update -y
 
 #add celar repo
-cat > /etc/yum.repos.d/celar.repo <<EOF
+cat > /etc/yum.repos.d/celar1.repo <<EOF
 [CELAR-snapshots]
 name=CELAR-snapshots
 baseurl=http://snf-175960.vm.okeanos.grnet.gr/nexus/content/repositories/snapshots
