@@ -40,3 +40,13 @@ for SCRIPT in $SCRIPTS; do
     chmod +x $SCRIPT
     ./$SCRIPT
 done
+
+
+
+
+# hack by ggian
+# remove the 70-persistent-net.rules file - must be executed at Flexiant else no connectivity
+
+
+
+rm /etc/udev/rules.d/70-persistent-net.rules
