@@ -31,6 +31,7 @@ if [ -z "${CONNECTORS}" ]; then
 fi
 
 ADD_CELAR_REPO=false
+CELAR_REPO_KIND=releases
 #CELAR_REPO_KIND=$(ss-get celar-repo-kind)
 
 # Directory with static content to deploy SlipStream client and Cloud clients
@@ -285,7 +286,7 @@ function _add_celar_repo() {
 	cat > /etc/yum.repos.d/celar.repo <<EOF
 [CELAR-${CELAR_REPO_KIND}]
 name=CELAR-${CELAR_REPO_KIND}
-baseurl=http://snf-175960.vm.okeanos.grnet.gr/nexus/content/repositories/${CELAR_REPO_KIND}
+baseurl=http://snf-175960.vm.okeanos.grnet.gr/yum/${CELAR_REPO_KIND}
 enabled=1
 protect=0
 gpgcheck=0
